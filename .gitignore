@@ -4,3 +4,5 @@
 /AWS/networking/terraform.tfstate*
 /AWS/storage/.terraform
 /AWS/storage/terraform.tfstate*
+/AWS/compute/.terraform
+/AWS/compute/terraform.tfstate*
