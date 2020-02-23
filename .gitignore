@@ -1,9 +1,6 @@
 /AWS/.terraform
-/AWS/terraform.tfstate
-/AWS/terraform.tfstate.backup
+/AWS/terraform.tfstate*
 /AWS/networking/.terraform
-/AWS/networking/terraform.tfstate
-/AWS/networking/terraform.tfstate.backup
+/AWS/networking/terraform.tfstate*
 /AWS/storage/.terraform
-/AWS/storage/terraform.tfstate
-/AWS/storage/terraform.tfstate.backup
+/AWS/storage/terraform.tfstate*
