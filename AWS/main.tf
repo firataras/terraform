@@ -1,6 +1,6 @@
 #----root/main.tf-----
 provider "aws" {
-  region = "${var.aws_region}"
+  region = var.aws_region
 }
 
 # Deploy Storage Resources
