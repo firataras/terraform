@@ -7,7 +7,7 @@ variable "project_name" {}
 #-------networking variables
 variable "vpc_cidr" {}
 variable "public_cidrs" {
-  type = "list"
+  type = list
 }
 
 variable "accessip" {}
