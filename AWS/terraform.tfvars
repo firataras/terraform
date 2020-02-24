@@ -1,4 +1,4 @@
-aws_region   = "us-west-1"
+aws_region   = "us-east-1"
 project_name = "la-terraform"
 vpc_cidr     = "10.123.0.0/16"
 public_cidrs = [
