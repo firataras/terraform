@@ -8,6 +8,6 @@ public_cidrs = [
 accessip    = "0.0.0.0/0"
 
 key_name = "tf_key"
-public_key_path = "/Users/user/.ssh/id_rsa.pub"
+public_key_path = "~/.ssh/id_rsa.pub"
 server_instance_type = "t2.micro"
 instance_count = 2
