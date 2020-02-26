@@ -6,3 +6,5 @@
 /AWS/storage/terraform.tfstate*
 /AWS/compute/.terraform
 /AWS/compute/terraform.tfstate*
+/GCP/.terraform
+/GCP/terraform.tfstate*
