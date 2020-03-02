@@ -1,8 +1,8 @@
 // Configure the Google Cloud provider
 provider "google" {
- credentials = file("CREDENTIALS_FILE.json")
- project     = "playground-s-11-d9fa03"
- region      = "us-west1"
+ credentials = file(var.credentials)
+ project     = var.project
+ region      = var.region
 }
 
 
@@ -13,31 +13,51 @@ resource "random_id" "instance_id" {
 
 // A single Google Cloud Engine instance
 resource "google_compute_instance" "default" {
- name         = "playground-s-11-d9fa03-vm-${random_id.instance_id.hex}"
+ name         = "playground-s-11-cc4fd9-vm-${random_id.instance_id.hex}"
  machine_type = "f1-micro"
  zone         = "us-west1-a"
 
  boot_disk {
    initialize_params {
-     image = "debian-cloud/debian-9"
+      image = "debian-cloud/debian-9"
+      //image = "ubuntu-os-cloud/ubuntu-1604-lts"
    }
  }
 
  metadata = {
-    ssh-keys = "user:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "iaras:${file("~/.ssh/google.pub")}"
  }
 
 // Make sure flask is installed on all new instances for later steps
- metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync; pip install flask"
+// metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync; pip install flask"
 
  network_interface {
    network = "default"
 
    access_config {
-     // Include this section to give the VM an external ip address
+     nat_ip = google_compute_address.static.address	
    }
  }
 
+// We connect to our instance via Terraform and remotely executes our script using SSH
+  provisioner "remote-exec" {
+    script = var.script_path
+
+    connection {
+      type        = "ssh"
+      port        = 22
+      host        = google_compute_address.static.address
+      user        = var.username
+      agent       = false
+      private_key = file(var.private_key_path)
+    }
+  }
+
+}
+
+# We create a public IP address for our google compute instance to utilize
+resource "google_compute_address" "static" {
+  name = "vm-public-address"
 }
 
 
@@ -54,3 +74,5 @@ resource "google_compute_firewall" "default" {
 output "ip" {
  value = "${google_compute_instance.default.network_interface.0.access_config.0.nat_ip}"
 }
+
+
